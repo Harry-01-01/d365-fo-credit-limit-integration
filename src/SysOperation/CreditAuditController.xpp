@@ -1,0 +1,17 @@
+class CreditAuditController extends SysOperationServiceController
+{
+    public static CreditAuditController construct()
+    {
+        CreditAuditController controller = new CreditAuditController();
+        controller.parmClassName(classStr(CreditAuditService));
+        controller.parmMethodName(methodStr(CreditAuditService, processAudit));
+        controller.parmExecutionMode(SysOperationExecutionMode::ScheduledBatch);
+        return controller;
+    }
+
+    public static void main(Args _args)
+    {
+        CreditAuditController controller = CreditAuditController::construct();
+        controller.startOperation();
+    }
+}

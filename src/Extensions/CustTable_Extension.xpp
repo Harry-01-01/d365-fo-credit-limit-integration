@@ -1,0 +1,22 @@
+[ExtensionOf(tableStr(CustTable))]
+final class CustTable_CreditValidation_Extension
+{
+    public boolean validateWrite()
+    {
+        boolean ret = next validateWrite();
+
+        if (ret && this.CreditMax > 1000000.00)
+        {
+            if (this.CreditRating == "")
+            {
+                ret = checkFailed("Credit limit exceeding PKR 1,000,000 requires a Credit Rating score.");
+            }
+            else
+            {
+                info(strFmt("High credit limit updated for Account %1. Marked for automated audit.", this.AccountNum));
+            }
+        }
+
+        return ret;
+    }
+}

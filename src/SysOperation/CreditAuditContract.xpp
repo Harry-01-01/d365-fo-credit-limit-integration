@@ -1,0 +1,13 @@
+[DataContractAttribute]
+class CreditAuditContract
+{
+    AmountMST thresholdAmount;
+
+    [DataMemberAttribute('ThresholdAmount'),
+     SysOperationLabelAttribute('Credit Threshold Amount')]
+    public AmountMST parmThresholdAmount(AmountMST _thresholdAmount = thresholdAmount)
+    {
+        thresholdAmount = _thresholdAmount;
+        return thresholdAmount;
+    }
+}

@@ -1,0 +1,23 @@
+class CreditAuditService extends SysOperationServiceBase
+{
+    public void processAudit(CreditAuditContract _contract)
+    {
+        CustTable custTable;
+        AmountMST minLimit = _contract.parmThresholdAmount();
+        int recordsAudited = 0;
+
+        ttsbegin;
+
+        while select forUpdate custTable
+            where custTable.CreditMax >= minLimit
+        {
+            custTable.MandatoryCreditLimit = NoYes::Yes;
+            custTable.update();
+            recordsAudited++;
+        }
+
+        ttscommit;
+
+        info(strFmt("Batch execution completed. %1 accounts updated.", recordsAudited));
+    }
+}
